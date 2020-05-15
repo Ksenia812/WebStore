@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Table Header</title>
+</head>
+<body>
+<div th:fragment="table-header" id="tableheader">
+    <div class="search">
+        <select id="columns" onchange="sorter.search('query')"></select>
+        <input type="text" id="query" onkeyup="sorter.search('query')" />
+    </div>
+    <span class="details">
+				<div>Records <span id="startrecord"></span>-<span id="endrecord"></span> of <span id="totalrecords"></span></div>
+        		<div><a href="javascript:sorter.reset()">reset</a></div>
+        </span>
+</div>
+</body>
+</html>
