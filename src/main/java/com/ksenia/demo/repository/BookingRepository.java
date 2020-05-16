@@ -11,4 +11,5 @@ import com.ksenia.demo.model.Booking;
  */
 public interface BookingRepository extends JpaRepository<Booking, Integer>
 {
+	Booking findBookingByUserId(Integer id);
 }

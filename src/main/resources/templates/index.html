@@ -5,15 +5,18 @@
 
 <head>
 	<title>Home</title>
-</div>
+	<div th:replace="fragments/header :: header-css"></div>
 </head>
-<body>
+<body th:inline="text">
+<div th:replace="fragments/header :: header"></div>
+
 <!--<div th:replace="fragments/header :: header"></div>-->
 <!--<div layout:fragment="content">-->
 
 <!--	<p sec:authorize="isAnonymous()"><a th:href="@{/login}">Login</a></p>-->
-	<p><a th:href="@{/home}">User Home</a></p>
-	<p><a th:href="@{/admin/home}">Admin Home</a></p>
+<!--	<p><a th:href="@{/home}">User Home</a></p>
+	<p><a th:href="@{/admin/home}">Admin Home</a></p>-->
+
 	<p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.ksenia.demo.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,12 @@ public class BookingServiceImpl implements IBookingService
 	}
 
 	@Override
+	public Booking getBookingByUserId(Integer id)
+	{
+		return bookingRepository.findBookingByUserId(id);
+	}
+
+	@Override
 	public List<Booking> getAllBookings()
 	{
 		return bookingRepository.findAll();
@@ -36,6 +43,7 @@ public class BookingServiceImpl implements IBookingService
 	@Override
 	public void addBooking(Booking booking)
 	{
+		booking.setDate(new Date());
 		bookingRepository.saveAndFlush(booking);
 	}
 

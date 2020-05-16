@@ -10,4 +10,5 @@ import com.ksenia.demo.model.Product;
 public interface ProductRepository extends JpaRepository<Product, Integer>
 {
 //	Goods getGoodsById(Integer id);
+	Product findProductByName(String name);
 }

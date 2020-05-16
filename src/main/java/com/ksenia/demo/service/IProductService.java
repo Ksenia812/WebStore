@@ -11,6 +11,7 @@ import com.ksenia.demo.model.Product;
 public interface IProductService
 {
 	Product getGoodsById(Integer id);
+	Product getProductByName(String name);
 	List<Product> getAllProducts();
 	void addProduct(Product product);
 	Product editProduct(Product product);

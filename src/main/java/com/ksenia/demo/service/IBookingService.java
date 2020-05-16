@@ -10,6 +10,7 @@ import com.ksenia.demo.model.Booking;
 public interface IBookingService
 {
 	Booking getBookingById(Integer id);
+	Booking getBookingByUserId(Integer id);
 	List<Booking> getAllBookings();
 	void addBooking(Booking booking);
 	Booking editBooking(Booking booking);

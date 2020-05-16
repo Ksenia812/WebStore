@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -26,7 +27,7 @@ public class Address
 	private String street;
 	private int houseNumber;
 	private int flatNumber;
-	@ToString.Exclude
+	@ToString.Exclude @EqualsAndHashCode.Exclude
 	@OneToOne(mappedBy = "address")
 	private User user;
 }
