@@ -29,14 +29,6 @@ public class UserController
 	@Autowired
 	private IUserService userService;
 
-/*	@RequestMapping(value= {"/", "/login"}, method=RequestMethod.GET)
-	public ModelAndView login() {
-		ModelAndView model = new ModelAndView();
-
-		model.setViewName("user/login");
-		return model;
-	}*/
-
 	@RequestMapping(value= {"/signup"}, method=RequestMethod.GET)
 	public ModelAndView signup() {
 		ModelAndView model = new ModelAndView();

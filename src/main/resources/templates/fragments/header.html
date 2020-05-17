@@ -16,9 +16,6 @@
 
 <nav class="navbar navbar-inverse" th:fragment="header">
     <div class="container-fluid">
-        <div class="navbar-header">
-            WebStore
-        </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li>
@@ -40,9 +37,13 @@
                     </ul>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
+            <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right" th:if="principal.username == null" >
+                <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
                     <input type="text" id="search" class="form-control" placeholder="Search"/>

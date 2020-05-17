@@ -1,5 +1,7 @@
 package com.ksenia.demo.controller;
 
+import java.util.HashSet;
+
 import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.ksenia.demo.model.Booking;
 import com.ksenia.demo.model.User;
 import com.ksenia.demo.service.impl.BookingServiceImpl;
 import com.ksenia.demo.service.impl.UserServiceImpl;
@@ -22,7 +25,7 @@ import com.ksenia.demo.service.impl.UserServiceImpl;
  * Copyright (c) 2020 apollon GmbH+Co. KG All Rights Reserved.
  */
 
-@Controller
+//@Controller
 public class BookingController
 {
 
@@ -36,13 +39,4 @@ public class BookingController
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return auth.getName();
 	}
-
-
-	@GetMapping(name = "/bookings")
-	public String getBooking(Model model) {
-		User user = userService.findUserByLogin(getCurrentUsername());
-		model.addAttribute("bookings", user.getBookings());
-		return "shopping_cart";
-	}
-
 }

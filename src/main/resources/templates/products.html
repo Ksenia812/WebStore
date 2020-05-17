@@ -38,24 +38,6 @@
 	</table>
 </div>
 <div th:replace="fragments/tablefooter :: table-footer"></div>
-<script th:inline="javascript" type="text/javascript">
-	function defineType(type) {
-		var ss =/*[[${items.get(0).getString('key_)]]*/ 'value';
-		alert(ss);
-		if (type === 0) {
-			return 'Zabbix Agent'
-		}
-		else if (type === 1) {
-			return 'SNMPv1 агент'
-		}
-		else if (type === 2) {
-			return 'Простая проверка'
-		}
-		else {
-			return 'SNMP трап'
-		}
-	}
-</script>
 <script type="text/javascript" src="/js/tablescript.js"></script>
 <script type="text/javascript">
 	var sorter = new TINY.table.sorter('sorter', 'items', {

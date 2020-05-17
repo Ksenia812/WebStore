@@ -12,10 +12,6 @@ import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 @Configuration
 public class WebConfig implements WebMvcConfigurer
 {
-
-/*	@Autowired
-	private MessageSource messageSource;*/
-
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry)
 	{
@@ -25,13 +21,6 @@ public class WebConfig implements WebMvcConfigurer
 		registry.addViewController("/admin/home").setViewName("adminhome");
 		//registry.addViewController("/403").setViewName("403");
 	}
-
-/*	@Override
-	public Validator getValidator() {
-		LocalValidatorFactoryBean factory = new LocalValidatorFactoryBean();
-		factory.setValidationMessageSource(messageSource);
-		return factory;
-	}*/
 
 	@Bean
 	public SpringSecurityDialect securityDialect() {

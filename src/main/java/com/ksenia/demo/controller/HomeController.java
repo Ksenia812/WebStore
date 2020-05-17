@@ -36,8 +36,6 @@ import com.ksenia.demo.service.impl.UserServiceImpl;
 @Controller
 public class HomeController
 {
-//	@Autowired
-//	private MessageRepository messageRepository;
 
 	private static final String CLOTHES_TAB = "Clothes";
 	private static final String SHOES_TAB = "Shoes";
@@ -61,29 +59,13 @@ public class HomeController
 	@GetMapping("/home")
 	public String home(Model model)
 	{
-//		model.addAttribute("msgs", messageRepository.findAll());
-		User user = userService.findUserByLogin(getCurrentUsername());
-		model.addAttribute("bookings", user.getBookings());
 		return "userhome";
 	}
 
-	public static String getCurrentUsername() {
+	public String getCurrentUsername() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return auth.getName();
 	}
-
-/*	@GetMapping(value = {"/"})
-	public String navBar(Model model) {
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
-		return "fragments/header";
-	}*/
-
-/*	@GetMapping("/login")
-	public String login(Model model) {
-		return "login";
-	}*/
 
 	@GetMapping(value = {"/clothes/{type}", "/shoes/{type}", "/accessories/{type}"})
 	public String getClothesTab(Model model, @PathVariable String type) {
@@ -103,7 +85,7 @@ public class HomeController
 			products.add(productService.getProductByName(product));
 			bookingExist.setProducts(products);
 			bookingService.editBooking(bookingExist);
-			model.addObject("bookings", bookingExist);
+			model.addObject("booking", bookingExist);
 		} else {
 			Booking booking = new Booking();
 			Set<Product> products = new HashSet<>();
@@ -111,55 +93,27 @@ public class HomeController
 			booking.setProducts(products);
 			booking.setUser(userService.findUserByLogin(getCurrentUsername()));
 			bookingService.addBooking(booking);
-			model.addObject("bookings", booking);
+			model.addObject("booking", booking);
 		}
 		model.setViewName("shopping_cart");
 		return model;
 	}
 
-/*
-	@GetMapping(value = "/shoes/{type}")
-	public String getShoesTab(Model model, @PathVariable String type) {
-		model.addAttribute("products", productService.getProductsByProductTypeName(type));
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
-		return "products";
+	@GetMapping(value = "/booking/delete/{product}")
+	public String deleteProductFromBooking(ModelAndView modelAndView, @PathVariable String product) {
+		User user = userService.findUserByLogin(getCurrentUsername());
+		Set<Product> products = user.getBookings().iterator().next().getProducts();
+		Product deleteProduct = productService.getProductByName(product);
+		products.remove(deleteProduct);
+		bookingService.editBooking(user.getBookings().iterator().next());
+//		modelAndView.setViewName("shopping_cart");
+		return "redirect:/..";
 	}
-
-	@GetMapping(value = "/accessories/{type}")
-	public String getAccessoriesTab(Model model, @PathVariable String type) {
-		model.addAttribute("products", productService.getProductsByProductTypeName(type));
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
-		return "products";
-	}*/
-
-/*
-	@GetMapping(value = "booking/{product}")
-	public String orderBooking(Model model, @PathVariable String product) {
-		model.addAttribute("products", userService.findUserByLogin("dsa").getBookings().iterator().next().getProducts());
-		return "booking";
-	}
-*/
-
-/*	@GetMapping(value = "/*")
-	public String getHeader(Model model) {
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
-		return "fragments/header";
-	}*/
 
 	@GetMapping(value = "/login")
 	public String loginPage() {
 		return "login";
 	}
-/*	@PostMapping("/messages")
-	public String saveMessage(Message message)
-	{
-		messageRepository.save(message);
-		return "redirect:/home";
-	}*/
+
+
 }

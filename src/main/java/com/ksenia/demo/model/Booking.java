@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * Copyright (c) 2020 apollon GmbH+Co. KG All Rights Reserved.
@@ -30,10 +32,12 @@ public class Booking
 	private int id;
 	@Column(name = "booking_date")
 	private Date date;
+	@ToString.Exclude @EqualsAndHashCode.Exclude
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
+	@ToString.Exclude @EqualsAndHashCode.Exclude
 	@ManyToMany
 	@JoinTable(name = "booking_products", joinColumns = @JoinColumn(name = "booking_id"),
 		inverseJoinColumns = @JoinColumn(name = "product_id"))

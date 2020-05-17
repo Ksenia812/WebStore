@@ -25,8 +25,8 @@ public class Address
 	private int id;
 	private String town;
 	private String street;
-	private int houseNumber;
-	private int flatNumber;
+	private Integer houseNumber;
+	private Integer flatNumber;
 	@ToString.Exclude @EqualsAndHashCode.Exclude
 	@OneToOne(mappedBy = "address")
 	private User user;
