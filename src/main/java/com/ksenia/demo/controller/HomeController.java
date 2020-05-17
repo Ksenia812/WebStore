@@ -76,40 +76,6 @@ public class HomeController
 		return "products";
 	}
 
-	@GetMapping(value = "/products/add/{product}")
-	public ModelAndView addProduct(ModelAndView model, @PathVariable String product) {
-		User user = userService.findUserByLogin(getCurrentUsername());
-		Booking bookingExist = bookingService.getBookingByUserId(user.getId());
-		if (bookingExist != null) {
-			Set<Product> products = bookingExist.getProducts();
-			products.add(productService.getProductByName(product));
-			bookingExist.setProducts(products);
-			bookingService.editBooking(bookingExist);
-			model.addObject("booking", bookingExist);
-		} else {
-			Booking booking = new Booking();
-			Set<Product> products = new HashSet<>();
-			products.add(productService.getProductByName(product));
-			booking.setProducts(products);
-			booking.setUser(userService.findUserByLogin(getCurrentUsername()));
-			bookingService.addBooking(booking);
-			model.addObject("booking", booking);
-		}
-		model.setViewName("shopping_cart");
-		return model;
-	}
-
-	@GetMapping(value = "/booking/delete/{product}")
-	public String deleteProductFromBooking(ModelAndView modelAndView, @PathVariable String product) {
-		User user = userService.findUserByLogin(getCurrentUsername());
-		Set<Product> products = user.getBookings().iterator().next().getProducts();
-		Product deleteProduct = productService.getProductByName(product);
-		products.remove(deleteProduct);
-		bookingService.editBooking(user.getBookings().iterator().next());
-//		modelAndView.setViewName("shopping_cart");
-		return "redirect:/..";
-	}
-
 	@GetMapping(value = "/login")
 	public String loginPage() {
 		return "login";
