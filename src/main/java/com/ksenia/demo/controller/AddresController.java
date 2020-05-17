@@ -22,18 +22,18 @@ import com.ksenia.demo.service.impl.UserServiceImpl;
  * Copyright (c) 2020 apollon GmbH+Co. KG All Rights Reserved.
  */
 
-@Controller
+//@Controller
 public class AddresController
 {
 	@Autowired
 	private UserServiceImpl userService;
 
-	@GetMapping(name = "/home/asd")
+/*	@GetMapping(name = "/home/asd")
 	public String getBooking(Model model) {
-		User user = userService.findUserByLogin(getCurrentUsername());
+		User user = userService.findUserByName(getCurrentUsername());
 		model.addAttribute("bookings", user.getBookings() != null ? user.getBookings(): new HashSet<Booking>());
 		return "shopping_cart";
-	}
+	}*/
 
 	public static String getCurrentUsername() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

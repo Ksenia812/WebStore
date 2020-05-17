@@ -10,7 +10,8 @@ import com.ksenia.demo.model.User;
 public interface IUserService
 {
 	User getUserById(Integer id);
-	User findUserByLogin(String name);
+	User findUserByName(String name);
+	User findUserByLogin(String login);
 	List<User> getAllUsers();
 	void addUser(User user);
 	User editUser(User user);

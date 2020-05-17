@@ -30,7 +30,7 @@ public class Booking
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@Column(name = "booking_date")
+	@Column(name = "order_date")
 	private Date date;
 	@ToString.Exclude @EqualsAndHashCode.Exclude
 	@ManyToOne

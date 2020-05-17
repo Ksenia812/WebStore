@@ -42,9 +42,14 @@ public class UserServiceImpl implements IUserService
 	}
 
 	@Override
-	public User findUserByLogin(String name)
+	public User findUserByName(String name)
 	{
-		return userRepository.findUserByLogin(name);
+		return userRepository.findUserByName(name);
+	}
+
+	@Override
+	public User findUserByLogin(String login) {
+		return userRepository.findUserByLogin(login);
 	}
 
 	@Override
@@ -73,6 +78,7 @@ public class UserServiceImpl implements IUserService
 	@Override
 	public User editUser(User user)
 	{
+		addressRepository.saveAndFlush(user.getAddress());
 		return userRepository.saveAndFlush(user);
 	}
 

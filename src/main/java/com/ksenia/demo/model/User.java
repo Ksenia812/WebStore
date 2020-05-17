@@ -36,6 +36,7 @@ public class User
 	private String login;
 	private String password;
 	private Integer active;
+	private Double balance;
 	@Transient
 	String confirmPassword;
 	@OneToOne

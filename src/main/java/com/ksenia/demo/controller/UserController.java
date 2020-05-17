@@ -8,9 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ksenia.demo.model.Address;
@@ -28,6 +26,11 @@ public class UserController
 {
 	@Autowired
 	private IUserService userService;
+
+	public static String getCurrentLogin() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		return auth.getName();
+	}
 
 	@RequestMapping(value= {"/signup"}, method=RequestMethod.GET)
 	public ModelAndView signup() {
@@ -56,6 +59,20 @@ public class UserController
 			model.setViewName("user/signup");
 		}
 
+		return model;
+	}
+
+	@GetMapping(value = "/home/userprofile")
+	public String getUserProfile(Model model) {
+		model.addAttribute("user", userService.findUserByLogin(getCurrentLogin()));
+		return "user_profile";
+	}
+
+	@PostMapping(value = "/home/userprofile")
+	public ModelAndView saveUserProfile(@Valid User user) {
+		ModelAndView model = new ModelAndView();
+		userService.editUser(user);
+		model.setViewName("user_profile");
 		return model;
 	}
 

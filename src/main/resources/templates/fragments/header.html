@@ -43,6 +43,9 @@
             <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
                 <li><a href="/home/bookings"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
+                <li><a href="/home/userprofile"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+            </ul>
             <ul class="nav navbar-nav navbar-right" th:if="principal.username == null" >
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>

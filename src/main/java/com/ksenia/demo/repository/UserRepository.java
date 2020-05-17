@@ -10,5 +10,6 @@ import com.ksenia.demo.model.User;
 public interface UserRepository extends JpaRepository<User, Integer>
 {
 //	User getUserById(Integer id);
-	User findUserByLogin(String name);
+	User findUserByName(String name);
+	User findUserByLogin(String login);
 }
