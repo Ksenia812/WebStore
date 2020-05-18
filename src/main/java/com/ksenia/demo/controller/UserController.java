@@ -68,6 +68,7 @@ public class UserController
 	@GetMapping(value = "/home/userprofile")
 	public String getUserProfile(Model model) {
 		model.addAttribute("user", userService.findUserByLogin(getCurrentLogin()));
+		model.addAttribute("shoppingCart", userService.findUserByLogin(getCurrentLogin()).getBookings().iterator().next().getProducts());
 		return "user_profile";
 	}
 

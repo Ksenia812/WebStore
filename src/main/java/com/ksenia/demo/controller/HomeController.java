@@ -62,7 +62,7 @@ public class HomeController
 		return "userhome";
 	}
 
-	public String getCurrentUsername() {
+	public String getCurrentLogin() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		return auth.getName();
 	}
@@ -73,6 +73,8 @@ public class HomeController
 		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
 		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
 		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
+		model.addAttribute("shoppingCart", userService.findUserByLogin(getCurrentLogin()).getBookings().iterator().
+			next().getProducts());
 		return "products";
 	}
 

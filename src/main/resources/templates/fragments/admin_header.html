@@ -41,11 +41,10 @@
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
-                <li><a href="/home/bookings"><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart
-                    <span class="badge" th:if="${shoppingCart} != null" th:utext="${shoppingCart.size()}"></span></a></li>
+                <li><a href="/home/bookings"><span class="glyphicon glyphicon-book"></span> All products</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
-                <li><a href="/home/userprofile"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
+                <li><a href="/home/userprofile"><span class="glyphicon glyphicon-alert"></span>Black List</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" th:if="principal.username == null" >
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
