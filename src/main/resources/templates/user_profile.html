@@ -9,14 +9,14 @@
 <body th:inline="text">
 <div th:replace="fragments/header :: header"></div>
 <div class="container">
-    <form class="form-horizontal" role="form" method="POST" th:action="@{/home/userprofile}" th:object="${user}">
-<!--        <div class="row">
+    <form class="form-horizontal" role="form" method="POST" th:action="@{/home/userprofile/save}" th:object="${user}">
+        <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <div class="alert alert-success" role="alert" th:if="${msg}" th:utext="${msg}">
+                <div class="alert alert-info" role="alert" th:if="${msg}" th:utext="${msg}">
                 </div>
             </div>
-        </div>-->
+        </div>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">

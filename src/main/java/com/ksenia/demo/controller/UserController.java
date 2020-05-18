@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ksenia.demo.model.Address;
 import com.ksenia.demo.model.User;
+import com.ksenia.demo.service.IAddressService;
 import com.ksenia.demo.service.ISecurityService;
 import com.ksenia.demo.service.IUserService;
 import com.ksenia.validator.UserValidator;
@@ -26,6 +27,9 @@ public class UserController
 {
 	@Autowired
 	private IUserService userService;
+
+	@Autowired
+	private IAddressService addressService;
 
 	public static String getCurrentLogin() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -50,14 +54,13 @@ public class UserController
 		if(userExists != null) {
 			bindingResult.rejectValue("login", "error.user", "This login already exists!");
 		}
-		if(bindingResult.hasErrors()) {
-			model.setViewName("user/signup");
-		} else {
+		if (!bindingResult.hasErrors())
+		{
 			userService.addUser(user);
 			model.addObject("msg", "User has been registered successfully!");
 			model.addObject("user", new User());
-			model.setViewName("user/signup");
 		}
+		model.setViewName("user/signup");
 
 		return model;
 	}
@@ -68,11 +71,31 @@ public class UserController
 		return "user_profile";
 	}
 
-	@PostMapping(value = "/home/userprofile")
-	public ModelAndView saveUserProfile(@Valid User user) {
-		ModelAndView model = new ModelAndView();
-		userService.editUser(user);
-		model.setViewName("user_profile");
+	@PostMapping(value = "/home/userprofile/save")
+	public ModelAndView saveUserProfile(ModelAndView model, BindingResult bindingResult,
+		@Valid User user) {
+		User editUser = userService.findUserByLogin(getCurrentLogin());
+		User userExists = userService.findUserByLogin(user.getLogin());
+		if (userExists != null) {
+			model.addObject("msg", "This login already exists!");
+			model.setViewName("user_profile");
+			return model;
+		}
+		else {
+			editUser.setName(user.getName());
+			editUser.setSurname(user.getSurname());
+			editUser.setLogin(user.getLogin());
+			Address editAddress = editUser.getAddress();
+			editUser.getAddress().setTown(user.getAddress().getTown());
+			editUser.getAddress().setStreet(user.getAddress().getStreet());
+			editUser.getAddress().setHouseNumber(user.getAddress().getHouseNumber());
+			editUser.getAddress().setFlatNumber(user.getAddress().getFlatNumber());
+			editUser.setAddress(editAddress);
+			addressService.editAddress(editAddress);
+			userService.editUser(editUser);
+			model.addObject("msg", "User profile was changed");
+			model.setViewName("user_profile");
+		}
 		return model;
 	}
 
