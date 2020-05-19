@@ -63,7 +63,7 @@ public class UserServiceImpl implements IUserService
 	{
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		Set<Role> roles = new HashSet<>();
-		roles.add(roleRepository.getOne(1));
+		roles.add(roleRepository.getOne(2));
 		user.setRoles(roles);
 		user.setActive(1);
 /*		Address address = new Address();

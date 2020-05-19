@@ -34,6 +34,7 @@ public class AdminController
 	@Autowired
 	private UserServiceImpl userService;
 
+	//admin/products/sneakers
 	@GetMapping(value = "/admin/products/{type}")
 	public String addProduct(Model model, @PathVariable String type) {
 		model.addAttribute("products", productService.getProductsByProductTypeName(type));
@@ -41,6 +42,11 @@ public class AdminController
 		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
 		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
 		return "admin_products";
+	}
+	@GetMapping(value = "/admin/users")
+		public String getUsers(Model model)
+	{model.addAttribute("users",userService.getAllUsers());
+		return "users";
 	}
 
 }

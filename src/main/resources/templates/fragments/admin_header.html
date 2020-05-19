@@ -17,7 +17,7 @@
 <nav class="navbar navbar-inverse" th:fragment="header">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
+<!--            <ul class="nav navbar-nav">
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clothes<b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -36,16 +36,19 @@
                         <li th:each="productType:${productTypeByAccessories}"><a th:href="@{'/accessories/' + ${productType.name}}" th:text="${productType.name}"></a></li>
                     </ul>
                 </li>
-            </ul>
+            </ul>-->
             <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
-                <li><a href="/home/bookings"><span class="glyphicon glyphicon-book"></span> All products</a></li>
+                <li><a href=/admin/products/><span class="glyphicon glyphicon-book"></span> All products</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
-                <li><a href="/home/userprofile"><span class="glyphicon glyphicon-alert"></span>Black List</a></li>
+                <li><a href="/admin/users"><span class="glyphicon glyphicon-user"></span> All users</a></li>
             </ul>
+<!--            <ul class="nav navbar-nav navbar-right" th:if="principal.username != null" >
+                <li><a href="/home/userprofile"><span class="glyphicon glyphicon-alert"></span>Black List</a></li>
+            </ul>-->
             <ul class="nav navbar-nav navbar-right" th:if="principal.username == null" >
                 <li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>

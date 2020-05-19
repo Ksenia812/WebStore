@@ -86,8 +86,8 @@ public class BookingController
 		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
 		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
 		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
-		model.addAttribute("shoppingCart", userService.findUserByLogin(getCurrentLogin()).getBookings().iterator().
-			next().getProducts());
+		Set<Booking> booking = userService.findUserByLogin(getCurrentLogin()).getBookings();
+		model.addAttribute("shoppingCart", !booking.isEmpty() ? booking.iterator().next().getProducts() : new HashSet<>());
 		return "shopping_cart";
 	}
 
@@ -111,8 +111,8 @@ public class BookingController
 		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
 		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
 		model.addAttribute("user", userService.findUserByLogin(getCurrentLogin()));
-		model.addAttribute("shoppingCart", userService.findUserByLogin(getCurrentLogin()).getBookings().iterator().next()
-		.getProducts());
+		Set<Booking> booking = userService.findUserByLogin(getCurrentLogin()).getBookings();
+		model.addAttribute("shoppingCart", !booking.isEmpty() ? booking.iterator().next().getProducts() : new HashSet<>());
 		return "payment";
 	}
 

@@ -144,7 +144,7 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                        <input type="text" th:field="*{login}" class="form-control" id="login"
+                        <input type="text" readonly th:field="*{login}" class="form-control" id="login"
                                placeholder="JerryMouse89" required autofocus>
                     </div>
                 </div>
@@ -178,6 +178,26 @@
                 </div>
             </div>
         </div>-->
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="balance">Balance</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group has-danger">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
+                        <input type="number" th:field="*{balance}" class="form-control" id="balance">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('balance')}"
+                               th:errors="*{balance}">
+                         </span>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">

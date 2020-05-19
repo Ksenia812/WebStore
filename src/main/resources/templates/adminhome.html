@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:th="http://www.thymeleaf.org"
-		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-		layout:decorator="layout">
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<title>Admin Home</title>
+	<title >Admin Home</title>
+	<div th:replace="fragments/header :: header-css"></div>
 </head>
-<body>
-<div layout:fragment="content">
-	<p>Welcome Administrator(<span sec:authentication="principal.username">Admin</span>)</p>
-	<p sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></p>
+<body th:inline="text">
+<div th:replace="fragments/admin_header :: header"></div>
+	<p style="text-align: center;font-size: 20pt">Welcome Administrator(<span sec:authentication="principal.username">Admin</span>)!!!</p>
+
 </div>
 <h1>This is admin home page</h1>
 </body>

@@ -1,60 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<meta charset="UTF-8"/>
-	<link rel="stylesheet" href="/css/table-style.css"/>
-	<title>Каталог товаров</title>
+	<title>Admin Home</title>
 	<div th:replace="fragments/header :: header-css"></div>
+	<link rel="stylesheet" href="/css/table-style.css"/>
 </head>
 <body th:inline="text">
-<div th:replace="fragments/header :: header"></div>
-<div class="header-title table">
-	<div class="cell">
-		<h1>Товары</h1>
-	</div>
+<div th:replace="fragments/admin_header :: header"></div>
 </div>
 <div id="tablewrapper">
 	<div th:replace="fragments/tableheader :: table-header"></div>
-	<button type="submit" id="form" onclick="location.href='admin/product/add'">Создать элемент данных</button>
-	<table cellpadding="0" cellspacing="0" border="0" id="items" class="tinytable" th:if="${products!=null}">
+	<table cellpadding="0" cellspacing="0" border="0" id="items" class="tinytable" th:if="${users!=null}">
 		<thead>
 		<tr>
 			<th><h3>name</h3></th>
-			<th><h3>price</h3></th>
-			<th><h3>description</h3></th>
-			<th><h3>amount</h3></th>
+			<th><h3>login</h3></th>
+			<th><h3>balance</h3></th>
+
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="product:${products}">
-			<td th:utext="${product.name}"></td>
-			<td th:utext="${product.price}"></td>
-			<td th:utext="${product.description}"></td>
-			<td th:utext="${product.amount}"></td>
-			<!--			<td><button type="submit" th:onclick="'/booking/' + ${product.name}"></button> </td>-->
+		<tr th:each="user:${users}">
+			<td th:utext="${user.name}"></td>
+			<td th:utext="${user.login}"></td>
+			<td th:utext="${user.balance}"></td>
 		</tr>
 		</tbody>
 	</table>
 </div>
 <div th:replace="fragments/tablefooter :: table-footer"></div>
-<script th:inline="javascript" type="text/javascript">
-	function defineType(type) {
-		var ss =/*[[${items.get(0).getString('key_)]]*/ 'value';
-		alert(ss);
-		if (type === 0) {
-			return 'Zabbix Agent'
-		}
-		else if (type === 1) {
-			return 'SNMPv1 агент'
-		}
-		else if (type === 2) {
-			return 'Простая проверка'
-		}
-		else {
-			return 'SNMP трап'
-		}
-	}
-</script>
 <script type="text/javascript" src="/js/tablescript.js"></script>
 <script type="text/javascript">
 	var sorter = new TINY.table.sorter('sorter', 'items', {

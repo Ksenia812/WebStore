@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Admin Home</title>
+    <div th:replace="fragments/header :: header-css"></div>
+    <link rel="stylesheet" href="/css/table-style.css"/>
+</head>
+<body th:inline="text">
+<div th:replace="fragments/admin_header :: header"></div>
+</div>
+<div id="tablewrapper">
+    <div th:replace="fragments/tableheader :: table-header"></div>
+    <table cellpadding="0" cellspacing="0" border="0" id="items" class="tinytable" th:if="${users!=null}">
+        <thead>
+        <tr>
+            <th><h3>name</h3></th>
+            <th><h3>login</h3></th>
+            <th><h3>balance</h3></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+            <td th:utext="${user.name}"></td>
+            <td th:utext="${user.login}"></td>
+            <td th:utext="${user.balance}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:replace="fragments/tablefooter :: table-footer"></div>
+<script type="text/javascript" src="/js/tablescript.js"></script>
+<script type="text/javascript">
+    var sorter = new TINY.table.sorter('sorter', 'items', {
+        headclass: 'head',
+        ascclass: 'asc',
+        descclass: 'desc',
+        evenclass: 'evenrow',
+        oddclass: 'oddrow',
+        evenselclass: 'evenselected',
+        oddselclass: 'oddselected',
+        paginate: true,
+        size: 10,
+        colddid: 'columns',
+        currentid: 'currentpage',
+        totalid: 'totalpages',
+        startingrecid: 'startrecord',
+        endingrecid: 'endrecord',
+        totalrecid: 'totalrecords',
+        hoverid: 'selectedrow',
+        pageddid: 'pagedropdown',
+        navid: 'tablenav',
+        sortcolumn: 1,
+        sortdir: 1,
+        init: true
+    });
+</script>
+</body>
+</html>
