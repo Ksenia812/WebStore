@@ -17,6 +17,9 @@
 <nav class="navbar navbar-inverse" th:fragment="header">
     <div class="container-fluid">
         <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav" th:if="principal.username != null" >
+                <li><a href="/home"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+            </ul>
             <ul class="nav navbar-nav">
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clothes<b class="caret"></b></a>
