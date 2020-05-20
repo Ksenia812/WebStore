@@ -9,26 +9,47 @@
 </head>
 <body th:inline="text">
 <div th:replace="fragments/admin_header :: header"></div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<div class="alert alert-info" role="alert" th:if="${msg}" th:utext="${msg}">
+		</div>
+	</div>
 </div>
 <div id="tablewrapper">
 	<div th:replace="fragments/tableheader :: table-header"></div>
-	<table cellpadding="0" cellspacing="0" border="0" id="items" class="tinytable" th:if="${users!=null}">
+	<table cellpadding="0" cellspacing="0" border="0" id="items" class="tinytable" th:if="${products!=null}">
 		<thead>
 		<tr>
 			<th><h3>name</h3></th>
-			<th><h3>login</h3></th>
-			<th><h3>balance</h3></th>
+			<th><h3>type</h3></th>
+			<th><h3>category</h3></th>
+			<th><h3>description</h3></th>
+			<th><h3>price</h3></th>
+			<th><h3>amount</h3></th>
+			<th><h3></h3></th>
+			<th><h3></h3></th>
 
 		</tr>
 		</thead>
 		<tbody>
-		<tr th:each="user:${users}">
-			<td th:utext="${user.name}"></td>
-			<td th:utext="${user.login}"></td>
-			<td th:utext="${user.balance}"></td>
+		<tr th:each="product:${products}">
+			<td th:utext="${product.name}"></td>
+			<td th:utext="${product.type.name}"></td>
+			<td th:utext="${product.type.category.name}"></td>
+			<td th:utext="${product.description}"></td>
+			<td th:utext="${product.price}"></td>
+			<td th:utext="${product.amount}"></td>
+			<td><a th:href="@{'/admin/product/edit/'+${product.id}}">edit</a></td>
+			<td><a th:href="@{'/admin/product/delete/'+${product.id}}">delete</a></td>
 		</tr>
 		</tbody>
 	</table>
+	<div  style="padding-left:88.5%">
+	<button type="submit" class="btn btn-success" onclick="location.href='/admin/product/add'"><i
+			class="fa fa-user-plus"></i> Add Product
+	</button>
+	</div>
 </div>
 <div th:replace="fragments/tablefooter :: table-footer"></div>
 <script type="text/javascript" src="/js/tablescript.js"></script>

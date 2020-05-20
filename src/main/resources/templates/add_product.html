@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+          id="bootstrap-css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body th:inline="text">
+<div th:replace="fragments/admin_header :: header"></div>
+<div class="container">
+    <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/product/add}" th:object="${product}">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="alert alert-info" role="alert" th:if="${msg}" th:utext="${msg}">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h2 style="text-align: center">Product Info</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name"> Name</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <!--                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>-->
+                        <input type="text" th:field="*{name}" class="form-control" id="name"
+                               placeholder="Name" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="type">Type</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" th:field="*{type.name}" class="form-control" id="type"
+                               placeholder="Type" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="category">Category</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" th:field="*{type.category.name}" class="form-control" id="category"
+                               placeholder="Category" required autofocus>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="col-md-3">
+                <div class="form-control-feedback">
+                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('')}"
+                               th:errors="*{login}">
+                         </span>
+                </div>
+            </div>-->
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="description">Description</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" th:field="*{description}" class="form-control" id="description"
+                               placeholder="Description" required autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('description')}"
+                               th:errors="*{description}">
+                         </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="price">Price</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" th:field="*{price}" class="form-control" id="price"
+                               placeholder="45" required autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('price')}"
+                               th:errors="*{price}">
+                         </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="amount">Amount</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" th:field="*{amount}" class="form-control" id="amount"
+                               placeholder="9" required autofocus>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-control-feedback">
+                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('amount')}"
+                               th:errors="*{amount}">
+                         </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-success" onclick="location.href='/admin/product/edit'"><i
+                        class="fa fa-user-plus"></i> Save
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

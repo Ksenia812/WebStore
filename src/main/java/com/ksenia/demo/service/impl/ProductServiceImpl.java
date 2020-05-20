@@ -25,7 +25,7 @@ public class ProductServiceImpl implements IProductService
 	private ProductTypeRepository productTypeRepository;
 
 	@Override
-	public Product getGoodsById(Integer id)
+	public Product getProductById(Integer id)
 	{
 		return productRepository.getOne(id);
 	}
