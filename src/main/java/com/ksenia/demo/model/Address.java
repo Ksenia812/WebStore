@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.PositiveOrZero;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +27,11 @@ public class Address
 	private int id;
 	private String town;
 	private String street;
+	@Digits(integer = 3, fraction = 0, message = "More then 3 digits")
+	@PositiveOrZero
 	private Integer houseNumber;
+	@Digits(integer = 3, fraction = 0, message = "More then 3 digits")
+	@PositiveOrZero
 	private Integer flatNumber;
 	@ToString.Exclude @EqualsAndHashCode.Exclude
 	@OneToOne(mappedBy = "address")

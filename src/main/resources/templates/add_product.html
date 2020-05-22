@@ -103,7 +103,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <input type="text" th:field="*{price}" class="form-control" id="price"
+                        <input type="number" th:field="*{price}" class="form-control" id="price"
                                placeholder="45" required autofocus>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <input type="text" th:field="*{amount}" class="form-control" id="amount"
+                        <input type="number" th:field="*{amount}" class="form-control" id="amount"
                                placeholder="9" required autofocus>
                     </div>
                 </div>
@@ -140,7 +140,7 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-success" onclick="location.href='/admin/product/edit'"><i
+                <button type="submit" class="btn btn-success" onclick="location.href='/admin/product/add'"><i
                         class="fa fa-user-plus"></i> Save
                 </button>
             </div>

@@ -1,4 +1,5 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <div th:fragment="header-css">
         <!-- this is header-css -->
@@ -19,6 +20,9 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav" th:if="principal.username != null" >
                 <li><a href="/home"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+            </ul>
+            <ul sec:authorize="hasRole('ADMIN')" class="nav navbar-nav" th:if="principal.username != null" >
+                <li><a href="/admin/home"><span class="glyphicon glyphicon-home"></span>Admin Home</a></li>
             </ul>
             <ul class="nav navbar-nav">
                 <li>

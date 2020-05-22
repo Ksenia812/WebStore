@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <select th:field="*{type.name}" class="form-control" id="type" style="height: 33px">
-                            <option th:each="type:${types}" th:utext="*{type.name}"></option>
+                            <option th:each="type:${types}" th:utext="*{type.name}" th:value="${type.name}"></option>
                         </select>
                     </div>
                 </div>

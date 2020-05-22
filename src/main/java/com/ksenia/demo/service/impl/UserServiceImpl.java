@@ -66,6 +66,7 @@ public class UserServiceImpl implements IUserService
 		roles.add(roleRepository.getOne(2));
 		user.setRoles(roles);
 		user.setActive(1);
+		user.setBalance(0.0);
 /*		Address address = new Address();
 		address.setTown("asd");
 		address.setStreet("asd");

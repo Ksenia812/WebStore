@@ -3,13 +3,6 @@ package com.ksenia.demo.controller;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.NoResultException;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.hibernate.engine.spi.SessionImplementor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,12 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ksenia.demo.model.Booking;
-import com.ksenia.demo.model.Product;
-import com.ksenia.demo.model.User;
 import com.ksenia.demo.service.impl.BookingServiceImpl;
 import com.ksenia.demo.service.impl.CategoryServiceImpl;
 import com.ksenia.demo.service.impl.ProductServiceImpl;
@@ -59,12 +48,16 @@ public class HomeController
 	@GetMapping("/home")
 	public String home(Model model)
 	{
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
+		addTabsToHeader(model);
 		Set<Booking> booking = userService.findUserByLogin(getCurrentLogin()).getBookings();
 		model.addAttribute("shoppingCart", !booking.isEmpty() ? booking.iterator().next().getProducts() : new HashSet<>());
 		return "userhome";
+	}
+
+	public void addTabsToHeader(Model model) {
+		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
+		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
+		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
 	}
 
 	public String getCurrentLogin() {
@@ -75,9 +68,7 @@ public class HomeController
 	@GetMapping(value = {"/clothes/{type}", "/shoes/{type}", "/accessories/{type}"})
 	public String getClothesTab(Model model, @PathVariable String type) {
 		model.addAttribute("products", productService.getProductsByProductTypeName(type));
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
+		addTabsToHeader(model);
 		Set<Booking> booking = userService.findUserByLogin(getCurrentLogin()).getBookings();
 		model.addAttribute("shoppingCart", !booking.isEmpty() ? booking.iterator().next().getProducts() : new HashSet<>());
 		return "products";
