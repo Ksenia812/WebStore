@@ -35,9 +35,6 @@ import java.util.Set;
 @Controller
 public class AdminController
 {
-	private static final String CLOTHES_TAB = "Clothes";
-	private static final String SHOES_TAB = "Shoes";
-	private static final String ACCESSORIES_TAB = "Accessories";
 
 	@Autowired
 	private CategoryServiceImpl categoryService;
@@ -82,9 +79,10 @@ public class AdminController
 	@GetMapping(value = "/admin/product/edit/{id}")
 	public String getProductInfo(Model model, @PathVariable Integer id)
 	{
-		model.addAttribute("product", productService.getProductById(id));
-		model.addAttribute("types", productTypeService.getAllProductsType());
+		Product product = productService.getProductById(id);
+		model.addAttribute("product", product);
 		model.addAttribute("categories", categoryService.getAllCategory());
+		model.addAttribute("types", productTypeService.getProductsTypeByCategoryName(product.getType().getCategory().getName()));
 		return "edit_product";
 	}
 
@@ -92,6 +90,9 @@ public class AdminController
 	public ModelAndView editProductInfo(ModelAndView model, @Valid Product product)
 	{
 		Product editProduct = product;
+		Category category = categoryService.getCategoryByName(product.getType().getCategory().getName());
+		ProductType type = productTypeService.getProductTypeByName(product.getType().getName());
+		editProduct.setType(type);
 		model.addObject("msg", "Operation was successful!");
 		model.setViewName("edit_product");
 //        }

@@ -10,11 +10,32 @@
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
     <div th:replace="fragments/header :: header-css"></div>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#category').change(function()
+            {   getTypes();
+            });
+        });
+        function getTypes(){
+            $.ajax("/admin/product/edit/", '17',function(data) {
+                        var html = '';
+                        var len = data.length;
+                        for(var i=0; i<len; i++){
+                            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
+                        }
+                        $('#type').append(html);
+                    }
+            );
+        }
+
+    </script>
 </head>
 <body th:inline="text">
 <div th:replace="fragments/admin_header :: header"></div>
 <div class="container">
-    <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/product/edit}" th:object="${product}">
+    <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/product/edit}" id="product" th:object="${product}">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -45,13 +66,15 @@
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="type">Type</label>
+                <label for="category">Category</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select th:field="*{type.name}" class="form-control" id="type" style="height: 33px">
-                            <option th:each="type:${types}" th:utext="*{type.name}" th:value="${type.name}"></option>
+                        <select th:field="*{type.category.name}" class="form-control" id="category" style="height: 33px">
+                            <th:block th:each="category:${categories}">
+                                <option th:value="${category.name}" th:utext="${category.name}"></option>
+                            </th:block>
                         </select>
                     </div>
                 </div>
@@ -59,25 +82,16 @@
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">
-                <label for="category">Category</label>
+                <label for="type">Type</label>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select class="form-control" id="category" style="height: 33px">
-                            <option th:each="category:${categories}">asd</option>
-
+                        <select th:field="*{type.name}" class="form-control" id="type" style="height: 33px">
                         </select>
                     </div>
                 </div>
             </div>
-            <!--<div class="col-md-3">
-                <div class="form-control-feedback">
-                         <span class="text-danger align-middle" th:if="${#fields.hasErrors('')}"
-                               th:errors="*{login}">
-                         </span>
-                </div>
-            </div>-->
         </div>
         <div class="row">
             <div class="col-md-3 field-label-responsive">

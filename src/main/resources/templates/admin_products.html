@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+		xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 	<title>Admin Home</title>
 	<div th:replace="fragments/header :: header-css"></div>
@@ -29,7 +29,6 @@
 			<th><h3>amount</h3></th>
 			<th><h3></h3></th>
 			<th><h3></h3></th>
-
 		</tr>
 		</thead>
 		<tbody>
@@ -45,10 +44,10 @@
 		</tr>
 		</tbody>
 	</table>
-	<div  style="padding-left:88.5%">
-	<button type="submit" class="btn btn-success" onclick="location.href='/admin/product/add'"><i
-			class="fa fa-user-plus"></i> Add Product
-	</button>
+	<div style="padding-left:88.5%">
+		<button type="submit" class="btn btn-success" onclick="location.href='/admin/product/add'"><i
+				class="fa fa-user-plus"></i> Add Product
+		</button>
 	</div>
 </div>
 <div th:replace="fragments/tablefooter :: table-footer"></div>
