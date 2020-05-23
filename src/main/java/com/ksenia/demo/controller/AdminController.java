@@ -7,23 +7,23 @@ import com.ksenia.demo.model.Product;
 import com.ksenia.demo.model.ProductType;
 import com.ksenia.demo.model.User;
 
+import com.ksenia.demo.util.JsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import com.ksenia.demo.service.impl.CategoryServiceImpl;
 import com.ksenia.demo.service.impl.ProductServiceImpl;
 import com.ksenia.demo.service.impl.ProductTypeServiceImpl;
 import com.ksenia.demo.service.impl.UserServiceImpl;
 
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
@@ -86,17 +86,29 @@ public class AdminController
 		return "edit_product";
 	}
 
-	@PostMapping(value = "/admin/product/edit")
-	public ModelAndView editProductInfo(ModelAndView model, @Valid Product product)
+	@GetMapping(value = "/admin/product")
+	public @ResponseBody Set<ProductType> getProductTypeByCategoryName(ModelAndView model, @RequestParam(value = "categoryName") String name) throws IOException {
+		return productTypeService.getProductsTypeByCategoryName(name);
+	}
+
+	@PostMapping(value = "/admin/product/edit_save/{id}")
+	public String editProductInfo(ModelAndView model, @PathVariable Integer id,  @Valid Product product, BindingResult bindingResult)
 	{
-		Product editProduct = product;
-		Category category = categoryService.getCategoryByName(product.getType().getCategory().getName());
-		ProductType type = productTypeService.getProductTypeByName(product.getType().getName());
-		editProduct.setType(type);
-		model.addObject("msg", "Operation was successful!");
-		model.setViewName("edit_product");
+		if (!bindingResult.hasErrors()) {
+			Product editProduct = product;
+			editProduct.setId(id);
+			ProductType type = productTypeService.getProductTypeByName(product.getType().getName());
+			editProduct.setType(type);
+			productService.addProduct(editProduct);
+			model.addObject("msg", "Operation was successful!");
+			model.setViewName("edit_product");
+			return "redirect:/admin/products";
 //        }
-		return model;
+		}
+		model.setViewName("edit_product");
+		model.addObject("product", product);
+		model.addObject("msg", "Error");
+		return "edit_product";
 	}
 
 	@GetMapping(value = "/admin/product/add")

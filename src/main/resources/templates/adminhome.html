@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<title >Admin Home</title>
-	<div th:replace="fragments/header :: header-css"></div>
+    <title>Admin Home</title>
+    <div th:replace="fragments/header :: header-css"></div>
+    <style>
+        body {
+            background: url("https://2.bp.blogspot.com/-fQn2R50HX84/Wvy5HHUTh3I/AAAAAAAAaOA/5VQ1NqTMg_c-DZ9BJEzXXkA9Ua_WN2SrwCLcBGAs/s1600/Screen%2BShot%2B2018-05-16%2Bat%2B7.04.37%2BPM.png");
+            background-size:cover;
+        }
+
+    </style>
 </head>
 <body th:inline="text">
 <div th:replace="fragments/admin_header :: header"></div>
-	<p style="text-align: center;font-size: 20pt">Welcome Administrator(<span sec:authentication="principal.username">Admin</span>)!!!</p>
+<p style="text-align: center;font-size: 90px">Welcome, Administrator(<span
+        sec:authentication="principal.username">Admin</span>)!!!</p>
 
 </div>
-<h1>This is admin home page</h1>
+<h1 style="text-align: center">This is admin home page</h1>
 </body>
 </html>

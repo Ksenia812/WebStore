@@ -5,18 +5,22 @@
 <head>
 	<title>User Home</title>
 	<div th:replace="fragments/header :: header-css"></div>
+	<style>
+		body { background: url("https://fashionokart.com/wp-content/uploads/2013/06/Tanger-Outlets2.jpg") ;
+			background-size: cover;
+			}
+
+	</style>
+<!--	<img src="../static/img/Background.jpg" class="background" />-->
+
 </head>
 <body th:inline="text">
 <div th:replace="fragments/header :: header"></div>
-<p><h3 style="text-align: center">
-	Welcome, <span sec:authentication="principal.username">User </span></h3>
+<p><h3 style="text-align: center;font-size: 100px">
+	Welcome, <span sec:authentication="principal.username">User </span>!!!</h3>
+   <h4 style="text-align: center;font-size:90px;color: #c7254e">Enjoy your shopping!!!</h4>
 </p>
-<div sec:authorize="hasRole('ADMIN')">
-	<h3>You will see this only if you are ADMIN</h3>
-	<p>
-		<a th:href="@{/admin/home}">Admin Home</a>
-	</p>
-</div>
+
 <!--<h3>Form with CSRF Token</h3>
 <form th:action="@{/messages}" method="post">
 	<textarea name="content" cols="50" rows="5"></textarea>

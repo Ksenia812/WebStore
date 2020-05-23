@@ -28,10 +28,6 @@ import com.ksenia.demo.service.impl.UserServiceImpl;
 public class BookingController
 {
 
-	private static final String CLOTHES_TAB = "Clothes";
-	private static final String SHOES_TAB = "Shoes";
-	private static final String ACCESSORIES_TAB = "Accessories";
-
 	@Autowired
 	private CategoryServiceImpl categoryService;
 
@@ -85,9 +81,7 @@ public class BookingController
 		} else {
 			model.addAttribute("booking", new Booking());
 		}
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
+		productTypeService.addAllTypeForTabs(model);
 		Set<Booking> booking = userService.findUserByLogin(userDetailsService.getCurrentLogin()).getBookings();
 		model.addAttribute("shoppingCart", !booking.isEmpty() ? booking.iterator().next().getProducts() : new HashSet<>());
 		return "shopping_cart";
@@ -109,9 +103,7 @@ public class BookingController
 
 	@GetMapping(value = "/payment")
 	public String goToPayment(Model model) {
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
+		productTypeService.addAllTypeForTabs(model);
 		model.addAttribute("user", userService.findUserByLogin(userDetailsService.getCurrentLogin()));
 		Set<Booking> booking = userService.findUserByLogin(userDetailsService.getCurrentLogin()).getBookings();
 		model.addAttribute("shoppingCart", !booking.isEmpty() ? booking.iterator().next().getProducts() : new HashSet<>());
@@ -120,9 +112,7 @@ public class BookingController
 
 	@GetMapping(value = "/payment/pay")
 	public String payForProduct(Model model) {
-		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
-		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
-		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
+		productTypeService.addAllTypeForTabs(model);
 		double balance = userService.findUserByLogin(userDetailsService.getCurrentLogin()).getBalance();
 		User user = userService.findUserByLogin(userDetailsService.getCurrentLogin());
 		Set<Product> products = user.getBookings().iterator().next().getProducts();

@@ -4,6 +4,8 @@ import javax.validation.Valid;
 
 import com.ksenia.demo.model.Booking;
 
+import com.ksenia.demo.service.IProductTypeService;
+import com.ksenia.demo.service.impl.ProductTypeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,11 +33,15 @@ import java.util.Set;
 @Controller
 public class UserController
 {
+
 	@Autowired
 	private IUserService userService;
 
 	@Autowired
 	private IAddressService addressService;
+
+	@Autowired
+	private ProductTypeServiceImpl productTypeService;
 
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
@@ -77,6 +83,7 @@ public class UserController
 		String login = userDetailsService.getCurrentLogin();
 		model.addAttribute("user", userService.findUserByLogin(login));
 		Set<Booking> booking = userService.findUserByLogin(login).getBookings();
+		productTypeService.addAllTypeForTabs(model);
 		model.addAttribute("shoppingCart", !booking.isEmpty() ? booking.iterator().next().getProducts() : new HashSet<>());
 		return "user_profile";
 	}

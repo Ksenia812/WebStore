@@ -3,30 +3,36 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>User Profile</title>
+    <title>Product Info</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
           id="bootstrap-css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css">
     <div th:replace="fragments/header :: header-css"></div>
-    <script src="/js/jquery.js"></script>
+    <script src="webjars/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript">
 
-        $(document).ready(function() {
-            $('#category').change(function()
-            {   getTypes();
+        $(document).ready(function () {
+            $('#category').change(function () {
+                getTypes();
             });
         });
-        function getTypes(){
-            $.ajax("/admin/product/edit/", '17',function(data) {
-                        var html = '';
-                        var len = data.length;
-                        for(var i=0; i<len; i++){
-                            html += '<option value="' + data[i].name + '">' + data[i].name + '</option>';
-                        }
-                        $('#type').append(html);
-                    }
+
+        function getTypes() {
+            $.getJSON("/admin/product", {categoryName: $('#category').val()}, function (data) {
+                var select = document.getElementById("type");
+                var length = select.options.length;
+                for (i = length - 1; i >= 0; i--) {
+                    select.options[i] = null;
+                }
+                    var html = '';
+                    $.each(data, function (i, type) {
+                        html += '<option value="' + type.name + '">' + type.name + '</option>';
+                    });
+
+                    $('#type').append(html);
+                }
             );
         }
 
@@ -35,7 +41,8 @@
 <body th:inline="text">
 <div th:replace="fragments/admin_header :: header"></div>
 <div class="container">
-    <form class="form-horizontal" role="form" method="POST" th:action="@{/admin/product/edit}" id="product" th:object="${product}">
+    <form class="form-horizontal" role="form" method="POST" th:action="@{'/admin/product/edit_save/' + ${product.id}}" id="product"
+          th:object="${product}">
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -71,7 +78,9 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select th:field="*{type.category.name}" class="form-control" id="category" style="height: 33px">
+                        <select th:field="*{type.category.name}" class="form-control" id="category"
+                                style="height: 33px">
+<!--                            <option th:value="0"></option>-->
                             <th:block th:each="category:${categories}">
                                 <option th:value="${category.name}" th:utext="${category.name}"></option>
                             </th:block>
@@ -88,6 +97,9 @@
                 <div class="form-group">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                         <select th:field="*{type.name}" class="form-control" id="type" style="height: 33px">
+                            <th:block th:each="type:${types}">
+                                <option th:value="${type.name}" th:utext="${type.name}"></option>
+                            </th:block>
                         </select>
                     </div>
                 </div>
@@ -153,13 +165,15 @@
                 </div>
             </div>
         </div>
-
+        <p id="product_id" hidden="true" th:value="${product.id}"></p>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
-                <button type="submit" class="btn btn-success" onclick="location.href='/admin/product/edit'"><i
+                <input th:action="@{'/admin/product/edit_save/' + ${product.id}}" th:method="post" class="button button-block" type="submit" value="Save"/>
+<!--                <a th:href="@{'/admin/product/edit_save/' + ${product.id}}" class="btn btn-success" role="button" type="submit">Save</a>-->
+<!--                <button type="submit" class="btn btn-success" onclick="location.href='/admin/product/edit'"><i
                         class="fa fa-user-plus"></i> Save
-                </button>
+                </button>-->
             </div>
         </div>
     </form>

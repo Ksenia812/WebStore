@@ -12,6 +12,7 @@ import com.ksenia.demo.repository.ProductRepository;
 import com.ksenia.demo.repository.ProductTypeRepository;
 import com.ksenia.demo.repository.UserRepository;
 import com.ksenia.demo.service.IProductTypeService;
+import org.springframework.ui.Model;
 
 /**
  * Copyright (c) 2020 apollon GmbH+Co. KG All Rights Reserved.
@@ -20,11 +21,15 @@ import com.ksenia.demo.service.IProductTypeService;
 @Service
 public class ProductTypeServiceImpl implements IProductTypeService
 {
+
 	@Autowired
 	private ProductTypeRepository productTypeRepository;
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private ProductTypeServiceImpl productTypeService;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -72,5 +77,15 @@ public class ProductTypeServiceImpl implements IProductTypeService
 	public ProductType getProductTypeByName(String name)
 	{
 		return productTypeRepository.getProductTypeByName(name);
+	}
+
+	@Override
+	public void addAllTypeForTabs(Model model) {
+		final String CLOTHES_TAB = "Clothes";
+		final String SHOES_TAB = "Shoes";
+		final String ACCESSORIES_TAB = "Accessories";
+		model.addAttribute("productTypeByClothes", productTypeService.getProductsTypeByCategoryName(CLOTHES_TAB));
+		model.addAttribute("productTypeByShoes", productTypeService.getProductsTypeByCategoryName(SHOES_TAB));
+		model.addAttribute("productTypeByAccessories", productTypeService.getProductsTypeByCategoryName(ACCESSORIES_TAB));
 	}
 }

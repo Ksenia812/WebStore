@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,6 +23,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "product_type")
+@JsonIgnoreProperties({"category", "products"})
 @Data
 public class ProductType
 {

@@ -41,7 +41,6 @@ public class User
 	private String name;
 	private String surname;
 	private String login;
-//	@Size(min = 9, max = 20)
 	private String password;
 	private Integer active;
 	@PositiveOrZero
