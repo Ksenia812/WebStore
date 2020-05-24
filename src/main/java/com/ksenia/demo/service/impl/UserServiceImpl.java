@@ -63,15 +63,10 @@ public class UserServiceImpl implements IUserService
 	{
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		Set<Role> roles = new HashSet<>();
-		roles.add(roleRepository.getOne(2));
+		roles.add(roleRepository.getOne(1));
 		user.setRoles(roles);
 		user.setActive(1);
 		user.setBalance(0.0);
-/*		Address address = new Address();
-		address.setTown("asd");
-		address.setStreet("asd");
-		address.setHouseNumber(2);
-		address.setFlatNumber(1);*/
 		addressRepository.saveAndFlush(user.getAddress());
 		userRepository.saveAndFlush(user);
 	}

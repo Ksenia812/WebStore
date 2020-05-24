@@ -58,7 +58,7 @@ public class UserController
 	}
 
 	@RequestMapping(value = {"/signup"}, method = RequestMethod.POST)
-	public ModelAndView createUser(@Valid User user, BindingResult bindingResult)
+	public String createUser(@Valid User user, BindingResult bindingResult)
 	{
 		ModelAndView model = new ModelAndView();
 		User userExists = userService.findUserByLogin(user.getLogin());
@@ -74,7 +74,7 @@ public class UserController
 		}
 		model.setViewName("user/signup");
 
-		return model;
+		return "redirect:/login";
 	}
 
 	@GetMapping(value = "/home/userprofile")
@@ -91,14 +91,7 @@ public class UserController
 	@PostMapping(value = "/home/userprofile/save")
 	public ModelAndView saveUserProfile(ModelAndView model, @Valid User user, BindingResult bindingResult)
 	{
-//        String currentLogin= getCurrentLogin();
 		User editUser = userService.findUserByLogin(userDetailsService.getCurrentLogin());
-        /*User userExists = userService.findUserByLogin(user.getLogin());
-        if (userExists != null) {
-            model.addObject("msg", "This login already exists!");
-            model.setViewName("user_profile");
-            return model;
-        } else {*/
 		if (!bindingResult.hasErrors())
 		{
 			editUser.setName(user.getName());
@@ -116,7 +109,6 @@ public class UserController
 			model.addObject("msg", "User profile was changed");
 		}
 		model.setViewName("user_profile");
-//        }
 		return model;
 	}
 

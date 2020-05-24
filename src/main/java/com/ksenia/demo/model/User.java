@@ -49,9 +49,6 @@ public class User
 	@JoinColumn(name = "address_id")
 	@Valid
 	private Address address;
-	@ManyToOne
-	@JoinColumn(name = "black_list_id")
-	private BlackList blackList;
 	@OneToMany(mappedBy = "user")
 	private Set<Booking> bookings;
 	@ManyToMany(cascade = CascadeType.ALL)

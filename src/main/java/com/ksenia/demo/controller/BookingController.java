@@ -118,7 +118,6 @@ public class BookingController
 		Set<Product> products = user.getBookings().iterator().next().getProducts();
 		if (balance == 0.0) {
 			model.addAttribute("msg", "You do not have enough money");
-			model.addAttribute("info", "alert alert-info");
 			model.addAttribute("user", userService.findUserByLogin(userDetailsService.getCurrentLogin()));
 			return "payment";
 		} else {
@@ -128,7 +127,6 @@ public class BookingController
 			}
 			if (user.getBalance() - finalCost < 0) {
 				model.addAttribute("msg", "You do not have enough money to pay for your goods! Please add money.");
-				model.addAttribute("msg", "alert alert-info");
 				model.addAttribute("user", userService.findUserByLogin(userDetailsService.getCurrentLogin()));
 				model.addAttribute("shoppingCart", userService.findUserByLogin(userDetailsService.getCurrentLogin()).getBookings().iterator().next().getProducts());
 				return "payment";
@@ -148,6 +146,6 @@ public class BookingController
 				model.addAttribute("user", userService.findUserByLogin(userDetailsService.getCurrentLogin()));
 			}
 		}
-		return "payment";
+		return "redirect:/home/bookings";
 	}
 }
