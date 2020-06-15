@@ -25,6 +25,7 @@ import com.ksenia.validator.UserValidator;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * Copyright (c) 2020 apollon GmbH+Co. KG All Rights Reserved.
@@ -33,6 +34,8 @@ import java.util.Set;
 @Controller
 public class UserController
 {
+
+	private static Logger logger = Logger.getLogger(UserController.class.getName());
 
 	@Autowired
 	private IUserService userService;
@@ -65,10 +68,12 @@ public class UserController
 
 		if (userExists != null)
 		{
+			logger.info("This login already exists");
 			bindingResult.rejectValue("login", "error.user", "This login already exists!");
 		}
 		if (!bindingResult.hasErrors())
 		{
+			logger.info("User has been registered");
 			userService.addUser(user);
 			model.addObject("msg", "User has been registered successfully!");
 		}
@@ -106,31 +111,13 @@ public class UserController
 			editUser.setAddress(editAddress);
 			addressService.editAddress(editAddress);
 			userService.editUser(editUser);
+			logger.info("User profile was changed");
 			model.addObject("msg", "User profile was changed");
 		}
 		model.setViewName("user_profile");
 		return model;
 	}
 
-/*
-	@RequestMapping(value= {"/home/home"}, method=RequestMethod.GET)
-	public ModelAndView home() {
-		ModelAndView model = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByLogin(auth.getName());
-
-		model.addObject("userName", user.getName() + " " + user.getSurname());
-		model.setViewName("home/home");
-		return model;
-	}
-
-	@RequestMapping(value= {"/access_denied"}, method=RequestMethod.GET)
-	public ModelAndView accessDenied() {
-		ModelAndView model = new ModelAndView();
-		model.setViewName("errors/access_denied");
-		return model;
-	}
-*/
 
 
 
@@ -138,56 +125,4 @@ public class UserController
 
 
 
-/*	@Autowired
-	private IUserService userService;
-
-	@Autowired
-	private ISecurityService securityService;
-
-	private final UserValidator userValidator = new UserValidator();
-
-	@RequestMapping(value = "/registration", method = RequestMethod.GET)
-	public String registration(Model model) {
-		model.addAttribute("userForm", new User());
-
-		return "registration";
-	}
-
-	@RequestMapping(value = "/registration", method = RequestMethod.POST)
-	public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
-		userValidator.validate(userForm, bindingResult);
-
-		if (bindingResult.hasErrors()) {
-			return "registration";
-		}
-
-		userService.addUser(userForm);
-
-		securityService.autoLogin(userForm.getName(), userForm.getConfirmPassword());
-
-		return "redirect:/welcome";
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model, String error, String logout) {
-		if (error != null) {
-			model.addAttribute("error", "Username or password is incorrect.");
-		}
-
-		if (logout != null) {
-			model.addAttribute("message", "Logged out successfully.");
-		}
-
-		return "login";
-	}
-
-	@RequestMapping(value = {"/", "/welcome"}, method = RequestMethod.GET)
-	public String welcome(Model model) {
-		return "welcome";
-	}
-
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String admin(Model model) {
-		return "admin";
-	}*/
 }

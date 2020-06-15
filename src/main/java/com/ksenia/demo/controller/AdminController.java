@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 /**
  * Copyright (c) 2020 apollon GmbH+Co. KG All Rights Reserved.
@@ -35,6 +36,7 @@ import java.util.Set;
 @Controller
 public class AdminController
 {
+	private static Logger logger = Logger.getLogger(AdminController.class.getName());
 
 	@Autowired
 	private CategoryServiceImpl categoryService;
@@ -71,6 +73,7 @@ public class AdminController
 		}
 		catch (Exception ex)
 		{
+			logger.warning("This product can't be removed");
 			System.out.println("This product can't be removed cause this product is edited to shopping cart!");
 		}
 		return "redirect:/admin/products";
@@ -100,6 +103,7 @@ public class AdminController
 			ProductType type = productTypeService.getProductTypeByName(product.getType().getName());
 			editProduct.setType(type);
 			productService.addProduct(editProduct);
+			logger.info("Product was edited");
 			model.addObject("msg", "Operation was successful!");
 			model.setViewName("edit_product");
 			return "redirect:/admin/products";
@@ -108,6 +112,7 @@ public class AdminController
 		model.setViewName("edit_product");
 		model.addObject("product", product);
 		model.addObject("msg", "Error");
+		logger.warning("Product can't be edited");
 		return "edit_product";
 	}
 
@@ -146,6 +151,7 @@ public class AdminController
 				productTypeService.addProductType(product.getType());
 			}
 			productService.addProduct(product);
+			logger.info("Product was added");
 			model.setViewName("redirect:/admin/products");
 			return model;
 		}

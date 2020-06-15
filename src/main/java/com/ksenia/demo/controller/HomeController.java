@@ -2,7 +2,9 @@ package com.ksenia.demo.controller;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import com.ksenia.demo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

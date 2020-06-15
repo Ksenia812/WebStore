@@ -2,6 +2,7 @@ package com.ksenia.demo.controller;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ import com.ksenia.demo.service.impl.UserServiceImpl;
 @Controller
 public class BookingController
 {
-
+	private static Logger logger = Logger.getLogger(BookingController.class.getName());
 	@Autowired
 	private CategoryServiceImpl categoryService;
 
@@ -66,6 +67,7 @@ public class BookingController
 			bookingService.addBooking(booking);
 			model.addObject("booking", booking);
 		}
+		logger.info("Product was added");
 		model.setViewName("shopping_cart");
 		return "redirect:/home/bookings";
 	}
@@ -98,6 +100,7 @@ public class BookingController
 		bookingService.editBooking(booking);
 //		modelAndView.addObject(booking);
 //		modelAndView.setViewName("shopping_cart");
+		logger.info("Product was deleted");
 		return "redirect:/home/bookings";
 	}
 
@@ -126,6 +129,7 @@ public class BookingController
 				finalCost+=product.getPrice();
 			}
 			if (user.getBalance() - finalCost < 0) {
+				logger.info("There is not enough money");
 				model.addAttribute("msg", "You do not have enough money to pay for your goods! Please add money.");
 				model.addAttribute("user", userService.findUserByLogin(userDetailsService.getCurrentLogin()));
 				model.addAttribute("shoppingCart", userService.findUserByLogin(userDetailsService.getCurrentLogin()).getBookings().iterator().next().getProducts());
@@ -141,6 +145,7 @@ public class BookingController
 				bookingService.editBooking(booking);
 				userService.editUser(user);
 				bookingService.editBooking(user.getBookings().iterator().next());
+				logger.info("Operation was successful");
 				model.addAttribute("msg", "Your operation was successful.Wait for your purchases!");
 				model.addAttribute("info", "alert alert-success");
 				model.addAttribute("user", userService.findUserByLogin(userDetailsService.getCurrentLogin()));

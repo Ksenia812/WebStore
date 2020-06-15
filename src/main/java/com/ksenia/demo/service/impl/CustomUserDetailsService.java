@@ -49,13 +49,7 @@ public class CustomUserDetailsService implements UserDetailsService
 		return auth.getName();
 	}
 
-/*	@Override
-	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-		User user = userRepository.findUserByLogin(login)
-			.orElseThrow(() -> new UsernameNotFoundException("Login " + login + " not found"));
-		return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(),
-			getAuthorities(user));
-	}*/
+
 
 	private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
 		String[] userRoles = user.getRoles().stream().map((role) -> role.getName()).toArray(String[]::new);
